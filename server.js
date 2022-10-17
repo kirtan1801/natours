@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
+process.on('uncaughtException', (err) => {
+    console.log(err.name, err.message);
+    console.log('Uncaught Exceotion...');
+    process.exit(1);
+});
+
 dotenv.config({ path: './config.env' });
 const app = require(`./app`);
 
@@ -16,11 +22,19 @@ mongoose
         useFindAndModify: false,
     })
     .then(() => {
-        //console.log('DB connections successful');
+        console.log('DB connections successful');
     });
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
-    //console.log(`App running on ${port}...`);
+const server = app.listen(port, () => {
+    console.log(`App running on ${port}...`);
+});
+
+process.on('unhandledRejection', (err) => {
+    console.log(err.name, err.message);
+    console.log('Unhandled Rejection...');
+    server.close(() => {
+        process.exit(1);
+    });
 });
