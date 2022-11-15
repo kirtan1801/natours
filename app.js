@@ -8,7 +8,6 @@ const hpp = require('hpp');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
-
 const tourRouter = require('./routers/tourRoutes');
 const userRouter = require('./routers/userRoutes');
 
