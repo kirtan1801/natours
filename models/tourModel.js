@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
-const validator = require('validator');
+// const validator = require('validator');
 
 const tourSchema = new mongoose.Schema(
     {
@@ -113,11 +113,27 @@ tourSchema.pre(/^find/, function (next) {
     next();
 });
 
+<<<<<<< HEAD
 tourSchema.post(/^find/, function (docs, next) {
     console.log(`Query took ${Date.now() - this.start}`);
     // console.log(docs);
     next();
 });
+=======
+tourSchema.pre(/^find/, function (next) {
+    this.populate({
+        path: 'guides',
+        select: '-__v -passwordChangedAt',
+    });
+    next();
+});
+
+// tourSchema.post(/^find/, function (docs, next) {
+//     console.log(`Query took ${Date.now() - this.start}`);
+//     // console.log(docs);
+//     next();
+// });
+>>>>>>> 94c07f6 (implementing review functionality)
 
 //Aggregation Middleware
 tourSchema.pre('aggregate', function (next) {

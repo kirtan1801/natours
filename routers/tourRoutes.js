@@ -1,5 +1,10 @@
 const express = require('express');
+<<<<<<< HEAD
 const tourController = require('./../controllers/tourController');
+=======
+const tourController = require('../controllers/tourController');
+const authController = require('../controllers/authController');
+>>>>>>> 94c07f6 (implementing review functionality)
 
 const router = express.Router();
 
