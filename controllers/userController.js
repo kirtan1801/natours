@@ -1,6 +1,6 @@
 const AppError = require('../utils/appError');
-const User = require('./../models/userModel');
-const catchAsync = require('./../utils/catchAsync');
+const User = require('../models/userModel');
+const catchAsync = require('../utils/catchAsync');
 
 const filterObj = (obj, ...allowedFields) => {
     const newObj = {};
@@ -18,10 +18,6 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
         data: {
             users,
         },
-    });
-    res.status(500).json({
-        status: 'error',
-        message: 'This route is not yet defined...!',
     });
 });
 
