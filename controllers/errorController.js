@@ -1,4 +1,4 @@
-const AppError = require('./../utils/appError');
+const AppError = require('../utils/appError');
 
 const handleCastErrorDB = (err) => {
     const message = `Invalid ${err.path}: ${err.value}`;
@@ -44,7 +44,7 @@ const sendErrorProd = (err, res) => {
     }
 };
 
-const handleJWTError = (err) =>
+const handleJWTError = () =>
     new AppError('Invalid token. Please log in again...!', 401);
 
 module.exports = (err, req, res, next) => {
@@ -54,10 +54,12 @@ module.exports = (err, req, res, next) => {
     //Development
     if (process.env.NODE_ENV === 'development') {
         sendErrorDev(err, res);
+        // eslint-disable-next-line no-console
         console.log(err);
     }
     //For production
     else if (process.env.NODE_ENV === 'production') {
+        // eslint-disable-next-line node/no-unsupported-features/es-syntax
         let error = { ...err };
         if (err.name === 'CastError') error = handleCastErrorDB(error);
         if (err.code === 11000) error = handleDuplicateFieldsDB(error);
